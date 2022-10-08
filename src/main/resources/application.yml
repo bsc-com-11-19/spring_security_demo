@@ -1,11 +1,11 @@
 app:
   jwt:
-    secrete: "${env.JWT_SECRETE}"
-    expiration: "${env.JWT_EXPIRATION_M_SECONDS}"
+    secrete: GawaniJusticeKasawala
+    expiration: 2000
 
 spring:
   datasource:
-    url: "${env.DATABASE_URL}"
+    url: jdbc:postgresql://localhost:5432/security_db
     hikari:
       connection-timeout: 20000
       minimum-idle: 10
@@ -13,8 +13,8 @@ spring:
       idle-timeout: 10000
       max-lifetime: 40000
       auto-commit: true
-    username: "${env.DB_USER_NAME}"
-    password: "${env.DB_PASSWORD}"
+    username: postgres
+    password: Jexy@2021
   main:
     banner-mode: off
   jpa:
