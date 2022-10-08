@@ -25,6 +25,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class WebSecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
@@ -36,6 +37,11 @@ public class WebSecurityConfig {
         http.sessionManagement().sessionCreationPolicy(STATELESS);
         http.authorizeRequests().antMatchers("/api/v1/auth/login", "/api/v1/auth/refresh-token").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.POST,"/api/v1/users").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/v1/users/disable-account").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/v1/users/update-role").access("hasRole('[ROLE_ADMIN,') or hasRole('ROLE_EXECUTIVE]')");
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users").access("hasRole('[ROLE_ADMIN,') or hasRole('ROLE_EXECUTIVE]')");
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users")).permitAll();
+
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(tokenUtility()), UsernamePasswordAuthenticationFilter.class);
