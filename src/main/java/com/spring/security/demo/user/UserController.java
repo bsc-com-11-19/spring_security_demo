@@ -33,7 +33,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN) or hasRole('ROLE_EXECUTIVE)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EXECUTIVE')")
     @GetMapping
     public ResponseEntity<PagedModel<?>> getAllUsers(@PositiveOrZero  @RequestParam(value="page", defaultValue = "0") int page,
                                                       @Positive @RequestParam(value="size", defaultValue = "20") int size,
@@ -46,7 +46,7 @@ public class UserController {
         return userService.getUser(authentication);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EXECUTIVE)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EXECUTIVE')")
     @PutMapping("update-role/{userName}/{role}")
     public ResponseEntity<ApiResponse> updateUserRole(@PathVariable("userName") String userName,
                                                       @PathVariable("role") String role,
