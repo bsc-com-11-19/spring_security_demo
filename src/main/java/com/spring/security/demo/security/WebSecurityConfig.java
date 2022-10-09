@@ -40,7 +40,7 @@ public class WebSecurityConfig {
         http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/v1/users/disable-account").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/v1/users/update-role").access("hasRole('[ROLE_ADMIN,') or hasRole('ROLE_EXECUTIVE]')");
         http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users").access("hasRole('[ROLE_ADMIN,') or hasRole('ROLE_EXECUTIVE]')");
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users")).permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET,"/api/v1/users/me").permitAll();
 
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
