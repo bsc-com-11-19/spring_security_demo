@@ -46,14 +46,14 @@ public class UserController {
         return userService.getUser(authentication);
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN) or hasRole('ROLE_EXECUTIVE)")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EXECUTIVE)")
     @PutMapping("update-role/{userName}/{role}")
     public ResponseEntity<ApiResponse> updateUserRole(@PathVariable("userName") String userName,
                                                       @PathVariable("role") String role,
                                                       Authentication currentUser){
         return userService.updateUserRole(userName, role, currentUser);
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("disable-account/{userName}")
     public ResponseEntity<ApiResponse> disableAccount(@PathVariable("userName") String userName){
         return userService.disableAccount(userName);
